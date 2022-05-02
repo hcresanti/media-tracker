@@ -1,24 +1,54 @@
-import logo from './logo.svg';
+import React, { useState, useRef, useEffect } from 'react'
 import './App.css';
 
 function App() {
+
+  const [boxes, setBoxes] = useState([])
+
+
+  // Create media
+  function HandleCreateMedia(e) {
+    var newBoxes = [...boxes]
+    newBoxes.push(Box((Math.floor(Math.random() * 100))))
+    setBoxes(newBoxes)
+  }
+  
+  // Delete media
+  function HandleDeleteMedia(e) {
+    var newBoxes = [...boxes]
+    newBoxes.pop()
+    setBoxes(newBoxes)
+  }
+
+
+  // BOX OBJECT
+  function Box(num) {
+    return (
+      <div key={num} className='box'>
+        {num}
+      </div>
+    )
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='parent-container'>
+
+      <div className='header-area'>
+        <button onClick={HandleCreateMedia}>
+          <label>Create</label>
+        </button>
+        <button onClick={HandleDeleteMedia}>
+          <label>Delete</label>
+        </button>
+      </div>
+
+      <div className="box-area">
+        <div className="box-container">
+          {boxes}
+        </div>
+      </div>
     </div>
+
   );
 }
 
