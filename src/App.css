@@ -36,6 +36,12 @@
   background-color: white;
 }
 
-.box:hover {
-  background-color: rgb(180, 180, 180);
+.box-image {
+  height: 100%;
+  width: 100%;
+  border-radius: 2px;
+}
+
+.box-image:hover {
+  filter: brightness(75%);
 }
