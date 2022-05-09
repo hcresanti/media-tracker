@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState } from 'react'
 import './App.css';
 
 function App() {
 
   const [boxes, setBoxes] = useState([])
   const testCover = "https://images-na.ssl-images-amazon.com/images/I/71t3PAc7G2L.jpg"
-  const requestUrl = "https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=AIzaSyBzLvj0d2_mb6fa5aEeV4hrvFc2XE6PRBg"
+  const requestUrl = "https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes"
 
   var currRequest
   var currRequestResults
@@ -27,22 +27,20 @@ function App() {
 
   // BOX OBJECT
   function Box(num) {
+    const image = makeRequest()
+
     return (
       <div key={num} className='box'>
-        <img className="box-image" src={testCover}/>
+        <img className="box-image" src={image}/>
       </div>
     )
   }
 
-  function makeRequest() {
-    fetch(requestUrl)
+  async function makeRequest() {
+    await fetch(requestUrl)
       .then((response) => response.json())
-      .then((actualData) => console.log(actualData.items[0].volumeInfo.imageLinks.thumbnail));
+      .then((data) => { return data.items[0].volumeInfo.imageLinks.thumbnail })
   }
-
-  useEffect(() => {
-    makeRequest()
-   }, []);
 
   return (
     <div className='parent-container'>
